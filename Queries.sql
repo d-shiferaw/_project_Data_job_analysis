@@ -249,3 +249,130 @@ INNER JOIN skills_dim AS skills ON skills.skill_id = remote_job_skills.skill_id
 ORDER BY 
     skill_count DESC
 LIMIT 5
+
+
+/* Union - combines results from two or more select statements 
+They need to have the same amount of columns, and the data type must match
+
+
+SELECT column_name 
+FROM table_one 
+
+UNION -- combine the two tables
+
+SELECT column_name
+FROM table_two
+
+-- gets ride of dupliate rows unlike (UNION ALL)
+*/
+
+SELECT 
+    job_title_short,
+    company_id,
+    job_location
+FROM 
+    january_jobs
+    
+UNION
+
+--Get jobs and companies from February 
+
+SELECT 
+    job_title_short,
+    company_id,
+    job_location
+FROM 
+    february_jobs
+UNION
+
+SELECT 
+    job_title_short,
+    company_id,
+    job_location
+FROM 
+    january_jobs
+    
+UNION
+
+--Get jobs and companies from march 
+
+SELECT 
+    job_title_short,
+    company_id,
+    job_location
+FROM 
+    march_jobs
+
+
+/* UNION ALL - combines the result of two or more SELECT statements 
+    - they need to have the same amount of columns, and the data type must match 
+
+SELECT column_name
+FROM table_one
+
+UNION ALL -- combine the two tables
+
+SELECT column_name 
+FROM table_two
+
+- Returns all rows, even duplicates (unlike union)
+- Personal note: I mostly use this to combine to tables together 
+*/
+
+SELECT 
+    job_title_short,
+    company_id,
+    job_location
+FROM 
+    february_jobs
+UNION ALL
+
+SELECT 
+    job_title_short,
+    company_id,
+    job_location
+FROM 
+    january_jobs
+    
+UNION ALL 
+
+--Get jobs and companies from march 
+
+SELECT 
+    job_title_short,
+    company_id,
+    job_location
+FROM 
+    march_jobs
+
+
+
+/* 
+Find jobs postigns from the first quarter that have a salary greater than $70K
+    - Combine job posting table from the first quarter of 2023 (Jan-Mar)
+    - Gets job postings with an average yearly salary > $70.000
+*/
+
+SELECT 
+    quarter1_job_postings.job_title_short,
+    quarter1_job_postings.job_via,
+    quarter1_job_postings.job_location,
+    quarter1_job_postings.job_posted_date::date,
+    quarter1_job_postings.salary_year_avg
+FROM 
+(SELECT * 
+FROM january_jobs
+UNION ALL
+SELECT * 
+FROM february_jobs
+UNION ALL 
+SELECT * 
+FROM march_jobs)
+
+AS quarter1_job_postings
+WHERE 
+    quarter1_job_postings.salary_year_avg >70000
+    AND quarter1_job_postings.job_title_short = 'Data Analyst'
+ORDER BY 
+    salary_year_avg DESC
+
