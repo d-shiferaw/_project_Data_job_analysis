@@ -17,7 +17,7 @@ Understand Industry Trends: Gain insights into the top paying jobs and in-demand
 Build Analytical Expertise: Develop my ability to analyze data, identify trends, and draw meaningful conclusions.
 Join me as I explore the fascinating world of data analytics and strive to bridge the gap between high demand and high salary in this dynamic field! 🌟
 
-# Questiosn I wanted to answer through my SQL queries were: 
+# Questions I wanted to answer through my SQL queries were: 
     1. What are the top-paying data analyst jobs?
     2. What skills are required for these top-paying jobs?
     3. What skills are most in demand for data analysts?
